@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -6,9 +5,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Trophy, Plus, Heart, Calendar, Code, Users, Star, Settings, LogOut } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Dashboard = () => {
-  const [user, setUser] = useState(null);
+  const { user, logout } = useAuth();
   const [hackathons, setHackathons] = useState([]);
   const [stats, setStats] = useState({
     totalHackathons: 0,
@@ -20,12 +20,7 @@ const Dashboard = () => {
   const { toast } = useToast();
 
   useEffect(() => {
-    const userData = localStorage.getItem('hackfolio_user');
     const hackathonData = localStorage.getItem('hackfolio_hackathons');
-    
-    if (userData) {
-      setUser(JSON.parse(userData));
-    }
     
     if (hackathonData) {
       const parsedHackathons = JSON.parse(hackathonData);
@@ -80,7 +75,7 @@ const Dashboard = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('hackfolio_user');
+    logout();
     navigate('/');
   };
 
