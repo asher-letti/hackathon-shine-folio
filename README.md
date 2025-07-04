@@ -1,73 +1,71 @@
-# Welcome to your Lovable project
+# 🚀 Hackfolio
 
-## Project info
+**Hackfolio** is a lightweight web app for developers and students to log, verify, and showcase their hackathon participation. It's like a portfolio for your hackathon journey — track your projects, earn visual badges, and share your progress publicly.
 
-**URL**: https://lovable.dev/projects/d4d7b277-9798-430f-b2f1-41e875533386
+> 🔗 **Live Site:** [https://hackathon-shine-folio.vercel.app/](https://hackathon-shine-folio.vercel.app/)
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## 📸 Features
 
-**Use Lovable**
+- 🔐 User Authentication (Supabase)
+- ➕ Add Hackathon Entries (title, description, proof link)
+- 📋 Dashboard View of Entries
+- 🎖️ Visual Badges for Each Entry
+- 🌐 Public Portfolio Profile
+- 🌓 Dark Mode Support
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/d4d7b277-9798-430f-b2f1-41e875533386) and start prompting.
+---
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🛠️ Tech Stack
 
-**Use your preferred IDE**
+- **Frontend:** HTML, CSS, Vanilla JavaScript  
+- **Backend/Auth:** Supabase (PostgreSQL + Auth)  
+- **Deployment:** Vercel
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+---
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## 🚦 How to Use
 
-Follow these steps:
+1. Visit the [Live Site](https://hackathon-shine-folio.vercel.app/)
+2. Sign up for a new account
+3. Add your hackathon entries with a title, date, and proof link
+4. View them in your dashboard and share your public profile
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+---
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## 📌 Roadmap (MVP Scope)
 
-# Step 3: Install the necessary dependencies.
-npm i
+- [x] Auth and user management  
+- [x] Add hackathon form  
+- [x] View entries dashboard  
+- [x] Dark mode toggle  
+- [x] Public profile page  
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+**Coming Soon:**
+- [ ] Edit/delete entries  
+- [ ] Badge animations  
+- [ ] Entry filters/tags  
+- [ ] Shareable profile URLs  
 
-**Edit a file directly in GitHub**
+---
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 👨‍💻 Authors
 
-**Use GitHub Codespaces**
+- **Gabriel Mwendwa** – Product & UX  
+- **Samuel Wanyingi** – Full Stack Developer  
+- **John Smith** – Operations  
+- **William Thomas** – Marketing Lead
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+---
 
-## What technologies are used for this project?
+## 📬 Contact
 
-This project is built with:
+For questions, suggestions, or contributions, reach out:  
+📧 **Email:** listerborn456@gmail.com
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+---
 
-## How can I deploy this project?
+## 🧠 License
 
-Simply open [Lovable](https://lovable.dev/projects/d4d7b277-9798-430f-b2f1-41e875533386) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+This project is open source and available under the [MIT License](LICENSE).
