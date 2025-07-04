@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -6,6 +7,9 @@ import { Badge } from '@/components/ui/badge';
 import { Trophy, Plus, Heart, Calendar, Code, Users, Star, Settings, LogOut } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
+import HackathonCard from './HackathonCard';
+import EmptyState from './EmptyState';
+import ThemeToggle from './ThemeToggle';
 
 const Dashboard = () => {
   const { user, logout } = useAuth();
@@ -79,20 +83,12 @@ const Dashboard = () => {
     navigate('/');
   };
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric'
-    });
-  };
-
   if (!user) return null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-indigo-50">
+    <div className="min-h-screen bg-background transition-colors">
       {/* Navigation */}
-      <nav className="bg-white/70 backdrop-blur-sm border-b border-purple-100 sticky top-0 z-10">
+      <nav className="bg-card/70 backdrop-blur-sm border-b border-border sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <Link to="/dashboard" className="flex items-center space-x-2">
@@ -106,19 +102,23 @@ const Dashboard = () => {
             
             <div className="flex items-center space-x-4">
               <Link to="/add-hackathon">
-                <Button className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white">
+                <Button className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white shadow-lg">
                   <Plus className="w-4 h-4 mr-2" />
                   Add Hackathon
                 </Button>
               </Link>
               
+              <ThemeToggle />
+              
               <div className="flex items-center space-x-2">
-                <img 
-                  src={(user as any).avatar} 
-                  alt="Profile" 
-                  className="w-8 h-8 rounded-full"
-                />
-                <span className="font-medium text-gray-700">{(user as any).name}</span>
+                <Link to={`/u/${(user as any).email?.split('@')[0]}`}>
+                  <img 
+                    src={(user as any).avatar} 
+                    alt="Profile" 
+                    className="w-8 h-8 rounded-full hover:ring-2 hover:ring-purple-500 transition-all cursor-pointer"
+                  />
+                </Link>
+                <span className="font-medium text-foreground">{(user as any).name}</span>
               </div>
               
               <Button variant="ghost" size="sm" onClick={handleLogout}>
@@ -132,17 +132,17 @@ const Dashboard = () => {
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Welcome Section */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          <h1 className="text-3xl font-bold text-foreground mb-2">
             Welcome back, {(user as any).name}! 👋
           </h1>
-          <p className="text-gray-600">
+          <p className="text-muted-foreground">
             Here's your hackathon journey overview
           </p>
         </div>
 
         {/* Stats Cards */}
         <div className="grid md:grid-cols-4 gap-6 mb-8">
-          <Card className="bg-gradient-to-r from-purple-500 to-indigo-500 text-white border-0">
+          <Card className="bg-gradient-to-r from-purple-500 to-indigo-500 text-white border-0 shadow-lg">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -154,7 +154,7 @@ const Dashboard = () => {
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-r from-pink-500 to-purple-500 text-white border-0">
+          <Card className="bg-gradient-to-r from-pink-500 to-purple-500 text-white border-0 shadow-lg">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -166,7 +166,7 @@ const Dashboard = () => {
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-r from-indigo-500 to-blue-500 text-white border-0">
+          <Card className="bg-gradient-to-r from-indigo-500 to-blue-500 text-white border-0 shadow-lg">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -178,7 +178,7 @@ const Dashboard = () => {
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-r from-orange-500 to-red-500 text-white border-0">
+          <Card className="bg-gradient-to-r from-orange-500 to-red-500 text-white border-0 shadow-lg">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -193,7 +193,7 @@ const Dashboard = () => {
 
         {/* Achievements */}
         {stats.achievements.length > 0 && (
-          <Card className="mb-8 bg-white/70 backdrop-blur-sm border-purple-100">
+          <Card className="mb-8 bg-card/70 backdrop-blur-sm border-border/50">
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
                 <Star className="w-5 h-5 text-purple-600" />
@@ -205,7 +205,7 @@ const Dashboard = () => {
                 {stats.achievements.map((achievement, index) => (
                   <Badge
                     key={index}
-                    className={`px-4 py-2 text-sm bg-gradient-to-r from-purple-500 to-indigo-500 text-white hover:from-purple-600 hover:to-indigo-600`}
+                    className="px-4 py-2 text-sm bg-gradient-to-r from-purple-500 to-indigo-500 text-white hover:from-purple-600 hover:to-indigo-600 shadow-sm"
                   >
                     <span className="mr-2">{achievement.icon}</span>
                     {achievement.name}
@@ -219,110 +219,27 @@ const Dashboard = () => {
         {/* Hackathons List */}
         <div className="space-y-6">
           <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-bold text-gray-900">Your Hackathons</h2>
-            {hackathons.length === 0 && (
+            <h2 className="text-2xl font-bold text-foreground">Your Hackathons</h2>
+            {hackathons.length > 0 && (
               <Link to="/add-hackathon">
                 <Button className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white">
                   <Plus className="w-4 h-4 mr-2" />
-                  Add Your First Hackathon
+                  Add Another
                 </Button>
               </Link>
             )}
           </div>
 
           {hackathons.length === 0 ? (
-            <Card className="bg-white/70 backdrop-blur-sm border-purple-100">
-              <CardContent className="p-12 text-center">
-                <Trophy className="w-16 h-16 text-purple-300 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">No hackathons yet</h3>
-                <p className="text-gray-600 mb-6">
-                  Start building your portfolio by adding your first hackathon experience!
-                </p>
-                <Link to="/add-hackathon">
-                  <Button className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white">
-                    <Plus className="w-4 h-4 mr-2" />
-                    Add Hackathon
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
+            <EmptyState />
           ) : (
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {hackathons.map((hackathon: any) => (
-                <Card
+                <HackathonCard
                   key={hackathon.id}
-                  className="bg-white/70 backdrop-blur-sm border-purple-100 hover:border-purple-200 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
-                >
-                  <CardHeader>
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <CardTitle className="text-lg font-semibold text-gray-900 mb-1">
-                          {hackathon.name}
-                        </CardTitle>
-                        <CardDescription className="text-gray-600">
-                          {hackathon.eventName}
-                        </CardDescription>
-                      </div>
-                      <button
-                        onClick={() => handleLike(hackathon.id)}
-                        className={`flex items-center space-x-1 px-3 py-1 rounded-full transition-all duration-300 ${
-                          hackathon.likedByUser
-                            ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white'
-                            : 'bg-purple-50 text-purple-600 hover:bg-purple-100'
-                        }`}
-                      >
-                        <Heart
-                          className={`w-4 h-4 ${
-                            hackathon.likedByUser ? 'fill-current' : ''
-                          }`}
-                        />
-                        <span className="text-sm font-medium">{hackathon.likes || 0}</span>
-                      </button>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-700 mb-4 line-clamp-3">
-                      {hackathon.description}
-                    </p>
-                    
-                    <div className="flex items-center space-x-4 text-sm text-gray-500 mb-4">
-                      <div className="flex items-center space-x-1">
-                        <Calendar className="w-4 h-4" />
-                        <span>{formatDate(hackathon.startDate)} - {formatDate(hackathon.endDate)}</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <Users className="w-4 h-4" />
-                        <span>Team of {hackathon.teamSize}</span>
-                      </div>
-                    </div>
-
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {hackathon.technologies?.slice(0, 3).map((tech: string, index: number) => (
-                        <Badge key={index} variant="secondary" className="text-xs">
-                          {tech}
-                        </Badge>
-                      ))}
-                      {hackathon.technologies?.length > 3 && (
-                        <Badge variant="secondary" className="text-xs">
-                          +{hackathon.technologies.length - 3} more
-                        </Badge>
-                      )}
-                    </div>
-
-                    <div className="flex items-center space-x-2">
-                      <Link to={`/hackathon/${hackathon.id}`}>
-                        <Button variant="outline" size="sm" className="border-purple-200 text-purple-700 hover:bg-purple-50">
-                          View Details
-                        </Button>
-                      </Link>
-                      <Link to={`/edit-hackathon/${hackathon.id}`}>
-                        <Button variant="ghost" size="sm" className="text-gray-600 hover:text-gray-900">
-                          Edit
-                        </Button>
-                      </Link>
-                    </div>
-                  </CardContent>
-                </Card>
+                  hackathon={hackathon}
+                  onLike={handleLike}
+                />
               ))}
             </div>
           )}
